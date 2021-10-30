@@ -54,16 +54,22 @@ eval context x = case x of
     EVar id  -> lookup context (getStr id)
     EStr str -> ValorStr str
     -- adicione abaixo um padrao e comportamento associado a expressao Or
-
+    -- Por serem operações que esperam um boolean, ValorInt foi alterado para ValorBool, b() é usado para retornar o boolean
+    -- Adicionado as mesmas comparações já existentes, porém com modificação a operação ou ||
+    EOr exp0 exp -> ValorBool ( b(eval context exp0) || b(eval context exp))
     -- adicione abaixo um padrao e comportamento associado a expressao And
-
+    -- Alterada para && representado a operação and
+    EAnd exp0 exp -> ValorBool ( b(eval context exp0) && b(eval context exp))
     -- adicione abaixo um padrao e comportamento associado a expressao Not
-
+    -- Alterado para not pois assim podemos negar o valor da expressão
+    ENot exp0 -> ValorBool (not ( b(eval context exp0)))
     -- adicione abaixo um padrao e comportamento associado ao literal true
-
+    -- Simplemente retorna um true
+    ETrue -> ValorBool True
     -- adicione abaixo um padrao e comportamento associado ao literal false
+    -- Simplesmente retorna um false
+    EFalse -> ValorBool False
 
-    
 type RContext = [(String,Valor)]
 
 getStr :: Ident -> String
