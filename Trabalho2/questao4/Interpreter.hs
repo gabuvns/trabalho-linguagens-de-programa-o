@@ -40,6 +40,14 @@ execute context x = case x of
                            Right n -> execute n (SWhile exp stm)
                         else Right context
 
+   STry (s:stmst) (stmsc) (stmsf) -> case eval context stmst of
+                     Left errorMessge ->  case eval context stmsc of
+                                          Left errorMessage -> errorMessage
+                                          Right n -> execute context (STry _ _ (stmsf))
+                     Right n -> execute n (STry stmst stmsc stmsf)                                         
+
+   STry _ _ (stmsf) -> execute context (SBlock stmsf)
+
 
 {- Dica: o tipo de eval deve mudar para
  eval :: RContext -> Exp -> Either ErrorMessage Integer
