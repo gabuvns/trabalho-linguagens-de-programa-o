@@ -5,3 +5,7 @@ Declaro que este trabalho foi realizado apenas pelo(a)(s) seguintes aluno(a)(s):
 2.Jose Fortes Neto                  160128331
 3. Gabriel Pinheiro dos Santos      170103579
  
+Obs: Durante o desenvolvimento foi utilizada as
+extensões de haskell do vscode. Incluindo o plugin WingMan que
+auxilia com codigo. 
+https://haskellwingman.dev/
