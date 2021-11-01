@@ -40,10 +40,10 @@ execute context x = case x of
                            Right n -> execute n (SWhile exp stm)
                         else Right context
 
-   STry (s:stmst) (stmsc) (stmsf) -> case eval context stmst of
-                     Left errorMessge ->  case eval context stmsc of
-                                          Left errorMessage -> errorMessage
-                                          Right n -> execute context (STry _ _ (stmsf))
+   STry (s:stmst) (stmsc) (stmsf) -> case execute context s of
+                     Left errorMessge ->  case execute context (SBlock stmsc) of
+                                          Left errorMessage -> Left errorMessage
+                                          Right n -> execute n (SBlock stmsf)
                      Right n -> execute n (STry stmst stmsc stmsf)                                         
 
    STry _ _ (stmsf) -> execute context (SBlock stmsf)
